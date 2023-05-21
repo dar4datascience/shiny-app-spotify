@@ -1,4 +1,6 @@
-library(tidyverse)
+library(purrr)
+library(tidyr)
+library(tibble)
 library(httr)
 library(stringr)
 library(lubridate)
@@ -16,7 +18,7 @@ library(htmltools)
 library(shinyjs)
 source("spotify_functions.R")
 source("loading_button.R")
-
+ 
 
 artist_inputUI <- function(id) {
       
