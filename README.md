@@ -1,4 +1,21 @@
 # shiny-app-spotify
+
+## PLANS 
+
+- DATA EXPLORATION UI REVAMP TO TABS 
+ - PLAYLIST CREATOR REVAMP CHECK MOOD OPTIONS
+- TOWARD RHINO
+  - EXTRACT LOGIC 2 FOLDER
+  - UI TIDY UP
+  - FOLLOW RHINO STR 
+ - MODIFY TOKEN TO SECRETS 
+ - LAUNCH TO IO BY ACTIONS 
+ - 
+
+
+##########################
+
+
 Shiny app that connects with spotify's API and provides personalized playlist recommendation through machine learning and data visualization.
 
 The app can be seen at http://joelcponte.shinyapps.io/spotifyapp.
