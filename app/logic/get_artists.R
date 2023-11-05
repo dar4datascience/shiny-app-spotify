@@ -1,7 +1,25 @@
+box::use(
+  httr[content,
+       GET],
+  stringr[str_replace],
+  purrr[map,
+        list_rbind,
+        pluck],
+  tidyr[nest],
+  dplyr[group_by]
+)
 
-get_artists <- function(artist_name, token) {
+box::use(
+  app/logic/auth_spotify[get_spotify_token],
+  app/logic/spotify_functions[clean_artist_response],
+  )
+
+
+get_artists <- function(artist_name) {
+  token <- get_spotify_token()
+  
   # Search Spotify API for artist name
-  res <-
+  search_artist_response <-
     GET(
       'https://api.spotify.com/v1/search',
       query = list(
@@ -9,21 +27,21 @@ get_artists <- function(artist_name, token) {
         type = 'artist',
         access_token = token
       )
-    ) %>%
-    content %>% .$artists %>% .$items
+    ) |> 
+    content() |> 
+    pluck("artists", "items")
   
-  # Clean response and combine all returned artists into a dataframe
-  artists <- map_df(seq_len(length(res)), function(x) {
-    list(
-      artist_name = res[[x]]$name,
-      artist_uri = str_replace(res[[x]]$uri, 'spotify:artist:', ''),
-      # remove meta info from the uri string
-      artist_img = ifelse(length(res[[x]]$images) > 0, res[[x]]$images[[1]]$url, NA)
-    )
-  })
+  # Clean search_artist_responseponse and combine all returned artists into a dataframe
+  artists_found_df <- search_artist_response |> 
+    map(
+      function(artist_found) {
+        clean_artist_response(artist_found)
+      }
+    ) |> 
+    list_rbind() 
   
-  if (nrow(artists) > 0)
-    return(artists)
+  if (nrow(artists_found_df) == 0)
+    return(NULL)
   
-  return(NULL)
+  return(artists_found_df)
 }
