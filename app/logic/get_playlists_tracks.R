@@ -1,3 +1,5 @@
+
+#' @export
 get_playlists_tracks <- function(playlist_list, token) {
   GET(
     'https://api.spotify.com/v1/users/claireunderwood2017/playlists/40HeD8KNiKZKiXzDARAzfN/tracks',

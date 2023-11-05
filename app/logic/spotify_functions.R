@@ -4,6 +4,7 @@ box::use(
          )
 
 
+#' @export
 clean_artist_response <- function(search_artist_response_list) {
    # Clean response
    artists_found_df <- tibble(

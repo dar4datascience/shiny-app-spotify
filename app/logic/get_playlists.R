@@ -1,4 +1,5 @@
 
+#' @export
 get_playlists <- function(playlist_name, token) {
   # Search Spotify API for a1rtist name
   res <-

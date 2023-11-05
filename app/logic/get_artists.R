@@ -15,6 +15,7 @@ box::use(
   )
 
 
+#' @export
 get_artists <- function(artist_name) {
   token <- get_spotify_token()
   

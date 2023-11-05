@@ -1,6 +1,6 @@
 
 
-
+#' @export
 get_tracks_features <- function(tracks, token) {
   features = GET(
     paste0('https://api.spotify.com/v1/audio-features/'),

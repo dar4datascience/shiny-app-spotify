@@ -1,5 +1,24 @@
+box::use(
+  httr[GET,
+       content],
+  purrr[map,
+        list_rbind],
+  plyr[rbind.fill],
+  dplyr
+)
 
-get_tracks <- function(artist_info, album_info, token) {
+box::use(
+  app/logic/auth_spotify[get_spotify_token],
+)
+
+
+#' @export
+get_tracks <- function(artist_info, album_info) {
+  
+  # Fetch token for this functions
+  token <- get_spotify_token()
+  
+  
   track_info <- map_df(album_info$album_uri, function(x) {
     tracks <-
       GET(
@@ -22,7 +41,9 @@ get_tracks <- function(artist_info, album_info, token) {
         query = list(access_token = token)
       ) %>% content %>% .$audio_features
     
-    df = plyr::rbind.fill(lapply(lapply(res, lapply, function(x)
+    df = plyr::rbind.fill(
+      lapply(
+        lapply(res, lapply, function(x)
       ifelse(is.null(x), NA, x)) , as.data.frame))#plyr::rbind.fill(lapply(lapply(res, Filter, f = Negate(is.null)) , as.data.frame))
     df = data.frame(do.call("cbind", lapply(df, function(x)
       if (is.numeric(x)) {
@@ -34,6 +55,7 @@ get_tracks <- function(artist_info, album_info, token) {
     #                   matrix(nrow = length(res), byrow = T) %>%
     #                   as.data.frame(stringsAsFactors = F
     # )
+    
     names(df) <- names(res[[1]])
     
     df <- df %>%
@@ -46,6 +68,7 @@ get_tracks <- function(artist_info, album_info, token) {
       rename(track_uri = id) %>%
       select(-c(type, track_href, analysis_url, uri))
     return(df)
+    
   }) %>%
     drop_na() %>%
     mutate(artist_img = artist_info$artist_img,
@@ -83,5 +106,7 @@ get_tracks <- function(artist_info, album_info, token) {
         '[^e0-9.-]+', '', as.character(.)
       )))
     ) # for some reason parse_number() from readr doesn't work here
+  
+  
   return(track_info)
 }

@@ -1,5 +1,5 @@
 
-
+#' @export
 get_albums <- function(artist_uri, token) {
   albums <-
     GET(
