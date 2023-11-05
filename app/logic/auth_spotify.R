@@ -1,10 +1,32 @@
-client_id <- '09419aa4748c4b5b94099c5bd1a3451e'
-client_secret <- '2179e36d865f42488ff4bee8551d619c'
-token <- POST(
-  'https://accounts.spotify.com/api/token',
-  accept_json(),
-  authenticate(client_id, client_secret),
-  body = list(grant_type = 'client_credentials'),
-  encode = 'form',
-  httr::config(http_version = 2)
-) %>% content %>% .$access_token
+box::use(
+  httr[GET,
+       POST,
+       authenticate,
+       config,
+       content,
+       accept_json],
+  purrr[pluck]
+)
+
+#' @export
+get_spotify_token <- function(client_id, client_secret) {
+  
+  token_response <- POST(
+    'https://accounts.spotify.com/api/token',
+    accept_json(),
+    authenticate(
+      Sys.getenv('SPOTIFY_CLIENT_ID'),
+      Sys.getenv('SPOTIFY_CLIENT_SECRET')
+      ),
+    body = list(grant_type = 'client_credentials'),
+    encode = 'form',
+    config(http_version = 2)
+  ) 
+  
+  token <- token_response |> 
+    content() |> 
+    pluck('access_token')
+    
+  
+  return(token)
+}
