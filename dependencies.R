@@ -1,2 +1,13 @@
 # This file allows packrat (used by rsconnect during deployment) to pick up dependencies.
+library(highcharter)
+library(httr)
+library(lubridate)
+library(plotly)
+library(purrr)
+library(RColorBrewer)
 library(rhino)
+library(shinydashboard)
+library(stringr)
+library(tibble)
+library(tidyr)
+library(usethis)
