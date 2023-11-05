@@ -1,3 +1,9 @@
+box::use(
+  htmltools[tags],
+  shiny[actionButton], 
+  shinydashboard[dashboardHeader]
+)
+
 header <- function() {
       header <- dashboardHeader()
       anchor <- tags$a(href='http://www.spotify.com',
