@@ -1,0 +1,10 @@
+name: shiny-app-spotify
+title:
+username: dar4ds
+account: dar4ds
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 10813259
+bundleId: 8057507
+url: https://dar4ds.shinyapps.io/shiny-app-spotify/
+version: 1
