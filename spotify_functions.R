@@ -90,8 +90,10 @@ get_tracks <- function(artist_info, album_info, token) {
 }
 
 
-client_id <- '09419aa4748c4b5b94099c5bd1a3451e'
-client_secret <- '2179e36d865f42488ff4bee8551d619c'
+client_id <- Sys.getenv('SPOTIFY_CLIENT_ID')
+client_secret <- Sys.getenv('SPOTIFY_CLIENT_SECRET')
+
+
 token <- POST('https://accounts.spotify.com/api/token',
               accept_json(), authenticate(client_id, client_secret),
               body = list(grant_type='client_credentials'),

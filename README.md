@@ -8,9 +8,7 @@
   - EXTRACT LOGIC 2 FOLDER
   - UI TIDY UP
   - FOLLOW RHINO STR 
- - MODIFY TOKEN TO SECRETS 
  - LAUNCH TO IO BY ACTIONS 
- - 
 
 
 ##########################
